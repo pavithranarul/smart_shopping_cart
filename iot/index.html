@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+        }
+        .item {
+            margin: 20px 0;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+    <script>
+        async function fetchData() {
+            try {
+                let response = await fetch('/data');
+                let data = await response.json();
+                document.getElementById('product').innerText = data.product;
+                document.getElementById('price').innerText = data.price.toFixed(2);
+                document.getElementById('total').innerText = data.total.toFixed(2);
+                document.getElementById('count').innerText = data.count;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        setInterval(fetchData, 1000); // Update data every second
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div class="item">
+            <h2>Current Product:</h2>
+            <p id="product">None</p>
+        </div>
+        <div class="item">
+            <h2>Price:</h2>
+            <p id="price">$0.00</p>
+        </div>
+        <div class="item">
+            <h2>Total Price:</h2>
+            <p id="total">$0.00</p>
+        </div>
+        <div class="item">
+            <h2>Total Products:</h2>
+            <p id="count">0</p>
+        </div>
+    </div>
+</body>
+</html>
